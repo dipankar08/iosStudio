@@ -14,6 +14,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var songImage: UIImageView!
     @IBOutlet weak var songLabel: UILabel!
     
+    @IBOutlet weak var btnDownload: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

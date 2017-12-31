@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E552BF11FF8952F00B36540 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E552BF01FF8952F00B36540 /* AppDelegate.swift */; };
 		3E552BF31FF8952F00B36540 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E552BF21FF8952F00B36540 /* ViewController.swift */; };
-		3E552BF61FF8952F00B36540 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E552BF41FF8952F00B36540 /* Main.storyboard */; };
+		3E552BF61FF8952F00B36540 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E552BF41FF8952F00B36540 /* Main.storyboard */; settings = {ASSET_TAGS = (10, ); }; };
 		3E552BF81FF8952F00B36540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E552BF71FF8952F00B36540 /* Assets.xcassets */; };
 		3E552BFB1FF8952F00B36540 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E552BF91FF8952F00B36540 /* LaunchScreen.storyboard */; };
 		3E552C031FF8A11500B36540 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E552C021FF8A11500B36540 /* CustomTableViewCell.swift */; };
@@ -93,6 +93,9 @@
 		3E552BE51FF8952F00B36540 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					10,
+				);
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Dipankar Dutta";

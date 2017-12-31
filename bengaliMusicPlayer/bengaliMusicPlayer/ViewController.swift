@@ -26,6 +26,9 @@ struct Song : Decodable {
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate {
    // let elements = ["dog","cat","dog","cat","dog","cat","dog","cat","dog","cat","dog","cat"]
     var songs:[Song] = [Song]()
+    var onlineSongs:[Song] = [Song]()
+    var offlineSongs:[Song] = [Song]()
+    
     var curSongIndex = 0;
     var page  = 0;
     
@@ -39,6 +42,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var filteredData = [Song]()
     var isSearching = false
 
+    @IBOutlet weak var segmentedView: UISegmentedControl!
+    
+    @IBAction func segmentedViewChanged(_ sender: Any) {
+        if(segmentedView.selectedSegmentIndex==0){
+            songs = onlineSongs
+            tableView.reloadData()
+        }
+        else if(segmentedView.selectedSegmentIndex==1){
+            offlineSongs = getAllLocal();
+            songs = offlineSongs
+            tableView.reloadData()
+        }
+        else{
+            
+        }
+
+    }
+    
     
     
     override func viewDidLoad() {
@@ -51,6 +72,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         clearTable()
         loadMoreData()
+        //test
+        print(inCache(url:"http://freetone.org/ring/stan/iPhone_5-Alarm.mp3"))
+        savelocal(url:"http://freetone.org/ring/stan/iPhone_5-Alarm.mp3")
+        print(inCache(url:"http://freetone.org/ring/stan/iPhone_5-Alarm.mp3"))
+        getAllLocal()
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,8 +111,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.cellView.layer.cornerRadius = cell.cellView.frame.height / 2
         cell.songImage.layer.cornerRadius = cell.songImage.frame.height / 2
         
+        let button1:UIButton = cell.btnDownload
+        button1.addTarget(self, action: #selector(FisrtButtonClick), for: .touchUpInside)
+        
         return cell
         
+    }
+    @objc func FisrtButtonClick(_ sender: Any)  {
+        //Get Button cell position.
+        let ButtonPosition = (sender as AnyObject).convert(CGPoint.zero, to: tableView)
+        let indexPath = tableView.indexPathForRow(at: ButtonPosition)
+        if indexPath != nil {
+            print("Download clicked for: \(indexPath?.row)")
+            savelocal(url: songs[(indexPath?.row)!].url)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -119,6 +157,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if myJson.out.count == 0 {
                     print(" No more data to be lopade...")
                 } else{
+                    self.onlineSongs.append(contentsOf: myJson.out)
                     self.songs.append(contentsOf: myJson.out)
                     print("Number of songs exists: \(self.songs.count)")
                     for song in myJson.out{
@@ -226,6 +265,79 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
+    
+    //cache ---------
+    func inCache(url:String) -> Bool{
+        if let audioUrl = URL(string: url) {
+            // then lets create your document folder url
+            let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            // lets create your destination file url
+            let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
+            print(destinationUrl)
+            
+            // to check if it exists before downloading it
+            if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                print("The file already exists at path")
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    func getAllLocal() -> [Song]{
+        var locals = [Song]()
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            for file in fileURLs{
+                let s = Song(track_name: file.lastPathComponent, track_album: "", track_artist: "", image: "", url: file.absoluteString)
+                print(s)
+                locals.append(s)
+            }
+            
+        } catch {
+            print("Error while enumerating files \(error.localizedDescription)")
+        }
+        return locals;
+    }
+    
+    func savelocal(url:String) {
+        var url1 = url;
+        Toast(message: "Downloding the songs")
+        if let audioUrl = URL(string: encode1(a: &url1)) {
+            
+            // then lets create your document folder url
+            let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            // lets create your destination file url
+            let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
+            print(destinationUrl)
+            
+            // to check if it exists before downloading it
+            if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                print("The file already exists at path")
+                
+                // if the file doesn't exist
+            } else {
+                
+                // you can use NSURLSession.sharedSession to download the data asynchronously
+                URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                    guard let location = location, error == nil else { return }
+                    do {
+                        // after downloading your file you need to move it to your destination url
+                        try FileManager.default.moveItem(at: location, to: destinationUrl)
+                        print("File moved to documents folder")
+                        self.Toast(message: "Downloding complete")
+                    } catch let error as NSError {
+                        print(error.localizedDescription)
+                    }
+                }).resume()
+            }
+        }
+    }
+    //cache end ----
 }
 
 extension UIImageView {
@@ -253,8 +365,6 @@ extension UIImageView {
         guard let url = URL(string: link) else { return }
         downloadedFrom(url: url, contentMode: mode)
     }
-    
-    
 }
 extension AVPlayer {
     var isPlaying: Bool {
