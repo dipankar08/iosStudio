@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.995487"
+            timestampString = "536408712.342677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.996302"
+            timestampString = "536408712.343439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "139"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.996628"
+            timestampString = "536408712.343763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.996956"
+            timestampString = "536408712.344055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.997326"
+            timestampString = "536408712.344348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "129"
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.997703"
+            timestampString = "536408712.344635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "play()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.998004"
+            timestampString = "536408712.344918"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.998462"
+            timestampString = "536408712.34534"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "128"
@@ -198,32 +198,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.998873"
+            timestampString = "536408712.34574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "next(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.999155"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "playpause(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -234,28 +218,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.999425"
+            timestampString = "536408712.346032"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "playpause(_:)"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "previous(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bengaliMusicPlayer/ViewController.swift"
-            timestampString = "536406462.999687"
+            timestampString = "536408712.346301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "previous(_:)"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "clearTable()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

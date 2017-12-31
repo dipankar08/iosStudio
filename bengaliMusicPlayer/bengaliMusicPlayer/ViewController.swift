@@ -161,6 +161,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if curSongIndex == -1 {
             curSongIndex = songs.count - 1
         }
+        play()
     }
     
     @IBAction func playpause(_ sender: Any) {
@@ -179,18 +180,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if curSongIndex == songs.count - 1 {
             curSongIndex = 0
         }
+        play();
     }
     func play(){
         var song = songs[curSongIndex];
-        var url = encode1(a : &song.url);
-        Toast(message: "Trying to playing /(song.track_title)")
+        let url = encode1(a : &song.url);
+        Toast(message: "Now playing " + song.track_name + "...")
         print(url)
      
             let playerItem = AVPlayerItem(url: URL(string: url)!)
             autdioPalyer = AVPlayer(playerItem: playerItem)
             autdioPalyer.rate = 1.0;
+            autdioPalyer.addObserver(self, forKeyPath: "status", options:NSKeyValueObservingOptions(), context: nil)
             autdioPalyer.play()
-             playPauseBtn.setTitle("Pause", for: UIControlState())
+            playPauseBtn.setTitle("Pause", for: UIControlState())
     }
     func encode1( a : inout String)->String{
         a = a.replacingOccurrences(of: " ", with: "%20")
@@ -206,6 +209,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let duration: Double = 5
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
             alert.dismiss(animated: true)
+        }
+    }
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if (keyPath == "status") {
+            let status: AVPlayerStatus = self.autdioPalyer.status
+            switch (status) {
+            case AVPlayerStatus.readyToPlay:
+                print("---------- ReadyToPlay ----------")
+                break
+            case .unknown:
+                
+                break;
+            case .failed:
+                Toast(message: "Not able to play the music...")
+            }
         }
     }
 }
