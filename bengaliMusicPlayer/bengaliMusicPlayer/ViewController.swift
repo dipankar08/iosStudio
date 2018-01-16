@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AVKit
 
 struct MyJson:Decodable{
     let out:[Song]
@@ -223,21 +224,46 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func play(){
         var song = songs[curSongIndex];
-        let url = encode1(a : &song.url);
+        let urle = encode1(a : &song.url);
         Toast(message: "Now playing " + song.track_name + "...")
-        print(url)
+        print(urle)
      
-            let playerItem = AVPlayerItem(url: URL(string: url)!)
-            autdioPalyer = AVPlayer(playerItem: playerItem)
-            autdioPalyer.rate = 1.0;
-            autdioPalyer.addObserver(self, forKeyPath: "status", options:NSKeyValueObservingOptions(), context: nil)
+        /*
+        
+         let avPlayerVC = AVPlayerViewController()
+         let url = URL(string: "https://transom.org/wp-content/uploads/2004/03/stereo_40kbps.mp3?_=7")!
+         let asset = AVURLAsset(url: url)
+         let item = AVPlayerItem(asset: asset)
+         let player = AVPlayer(playerItem: item)
+         avPlayerVC.player = player
+         
+         present(avPlayerVC, animated: true) {
+         player.play()
+         }
+        
+    */
+        let userCredential = URLCredential(user: "admin",
+                                           password: "admin",
+                                           persistence: .permanent)
+        
+       // URLCredentialStorage.shared.setDefaultCredential(URLCredential, for: URLProtectionSpace
+
+        let url = URL(string: "http://transom.org/wp-content/uploadsz/2004/03/stereo_40kbps.mp3?_=7")!
+//        var streamURL = URL(string: urle)!
+        autdioPalyer = AVPlayer(url: url)
+//            autdioPalyer.rate = 1.0;
+//            autdioPalyer.addObserver(self, forKeyPath: "status", options:NSKeyValueObservingOptions(), context: nil)
             autdioPalyer.play()
             playPauseBtn.setTitle("Pause", for: UIControlState())
+
+        
+ 
     }
     func encode1( a : inout String)->String{
         a = a.replacingOccurrences(of: " ", with: "%20")
         a = a.replacingOccurrences(of: "(", with: "%28")
         a = a.replacingOccurrences(of: ")", with: "%29")
+        a = a.replacingOccurrences(of: "http", with: "https");
         return a
     }
     

@@ -13,6 +13,7 @@
 		3E552BF81FF8952F00B36540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E552BF71FF8952F00B36540 /* Assets.xcassets */; };
 		3E552BFB1FF8952F00B36540 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E552BF91FF8952F00B36540 /* LaunchScreen.storyboard */; };
 		3E552C031FF8A11500B36540 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E552C021FF8A11500B36540 /* CustomTableViewCell.swift */; };
+		3E65F0C82005A23E00A8463A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E65F0C72005A23E00A8463A /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		3E552BFA1FF8952F00B36540 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E552BFC1FF8952F00B36540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E552C021FF8A11500B36540 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		3E65F0C32005A1B800A8463A /* bengaliMusicPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bengaliMusicPlayer.entitlements; sourceTree = "<group>"; };
+		3E65F0C72005A23E00A8463A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E65F0C82005A23E00A8463A /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +46,7 @@
 			children = (
 				3E552BEF1FF8952F00B36540 /* bengaliMusicPlayer */,
 				3E552BEE1FF8952F00B36540 /* Products */,
+				3E65F0C42005A1B800A8463A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +61,7 @@
 		3E552BEF1FF8952F00B36540 /* bengaliMusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				3E65F0C32005A1B800A8463A /* bengaliMusicPlayer.entitlements */,
 				3E552BF01FF8952F00B36540 /* AppDelegate.swift */,
 				3E552BF21FF8952F00B36540 /* ViewController.swift */,
 				3E552BF41FF8952F00B36540 /* Main.storyboard */,
@@ -65,6 +71,14 @@
 				3E552BFC1FF8952F00B36540 /* Info.plist */,
 			);
 			path = bengaliMusicPlayer;
+			sourceTree = "<group>";
+		};
+		3E65F0C42005A1B800A8463A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3E65F0C72005A23E00A8463A /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,6 +120,12 @@
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
 							};
 						};
 					};
@@ -286,11 +306,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = bengaliMusicPlayer/bengaliMusicPlayer.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8FX45Y9ZB6;
 				INFOPLIST_FILE = bengaliMusicPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.dipankar.bengaliMusicPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -300,11 +324,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = bengaliMusicPlayer/bengaliMusicPlayer.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8FX45Y9ZB6;
 				INFOPLIST_FILE = bengaliMusicPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.dipankar.bengaliMusicPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
