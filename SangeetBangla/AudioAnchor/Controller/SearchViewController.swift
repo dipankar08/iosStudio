@@ -13,15 +13,10 @@ import AVFoundation
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     var albumPlaylist: [Album] = []
-    var trackPlaylist: [Song] = []
     let apiClient = APIClient()
-    var avPlayer: AVPlayer!
-    var isPaused: Bool!
     var currentIndex: Int = Int()
-    var currentTrack: Song?
     @IBOutlet weak var tableView: UITableView!
-    //var currentPlayerStatus: PlayerStatus = .waitingToPlay
-    //@IBOutlet weak var tableView: UITableView!
+
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,14 +26,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
     super.viewDidLoad()
-       //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchcell")
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         
         apiClient.fetchAudioTracks { (results, errorMessage) in
             if let results = results{
                 self.albumPlaylist = results
-                self.trackPlaylist = results[0].songs
                 self.tableView.reloadData()
             }
         }
@@ -65,18 +58,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                 }
             }
         }
- 
-    /*
-        if currentIndex == indexPath.row {
-            cell.backgroundColor = .orange
-            cell.togglePlayPause()
-            cell.playOrPauseImage.isHidden = false
-        } else {
-            cell.backgroundColor = .white
-            cell.togglePlayPause()
-            cell.playOrPauseImage.isHidden = true
-        }
- */
         return cell
     }
     
@@ -85,18 +66,16 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let index = indexPath.row
+        currentIndex = indexPath.row
         performSegue(withIdentifier: "ShowNext", sender: self)
     }
  
-    /*
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "SearchViewController", bundle: Bundle.main)
-        let destination = storyboard.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerController
-        navigationController?.pushViewController(destination, animated: true)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let album = albumPlaylist[currentIndex]
+        if let destinationViewController = segue.destination as? PlayerController {
+            destinationViewController.album = album
+        }
     }
- */
-    
     
 }
 

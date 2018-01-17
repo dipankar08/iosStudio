@@ -14,8 +14,7 @@ private let reuseIdentifier = "Cell"
 
 class PlayerController:  UIViewController, UITableViewDataSource, UITableViewDelegate{
 
-    var albumPlaylist: [Album] = []
-    var trackPlaylist: [Song] = []
+    var album: Album?
     let apiClient = APIClient()
     var avPlayer: AVPlayer!
     var isPaused: Bool!
@@ -23,7 +22,9 @@ class PlayerController:  UIViewController, UITableViewDataSource, UITableViewDel
     var currentTrack: Song?
     var currentPlayerStatus: PlayerStatus = .waitingToPlay
     
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var headimage: UIImageView!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AudioPlayer.sharedInstance.isPaused = true
@@ -35,11 +36,11 @@ class PlayerController:  UIViewController, UITableViewDataSource, UITableViewDel
         tableView.dataSource = self;
         tableView.delegate = self;
         
-        apiClient.fetchAudioTracks { (results, errorMessage) in
-            if let results = results{
-                self.albumPlaylist = results
-                self.trackPlaylist = results[0].songs
-                self.tableView.reloadData()
+        album?.downloadImage(url: (album?.imageURL)!) { (songImage) in
+            DispatchQueue.main.async {
+                if songImage != nil {
+                    self.headimage.image = songImage
+                }
             }
         }
     }
@@ -50,32 +51,25 @@ class PlayerController:  UIViewController, UITableViewDataSource, UITableViewDel
     }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trackPlaylist.count
+        return (album?.songs.count)!
     }
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier: "songcell") as! SongTableViewCell
 
 
-        let track = trackPlaylist[indexPath.row]
+        let track = album?.songs[indexPath.row]
         cell.sl.text = String(indexPath.row)
-        cell.author.text = track.author
-        cell.title.text = track.title
-        /*
-         track.downloadImage(url: track.imageURL) { (songImage) in
-         DispatchQueue.main.async {
-         if songImage != nil {
-         cell.trackImage.image = songImage
-         }
-         }
-         }
-         */
+        //cell.author.text = track?.author
+        cell.author.isHidden = true
+        cell.title.text = track?.title
+
         if currentIndex == indexPath.row {
-            cell.backgroundColor = .orange
+            cell.title.textColor = .black
             cell.togglePlayPause()
             cell.PlayOrPauseImage.isHidden = false
         } else {
-            cell.backgroundColor = .white
+            cell.title.textColor = .gray
             cell.togglePlayPause()
             cell.PlayOrPauseImage.isHidden = true
         }
@@ -83,12 +77,12 @@ class PlayerController:  UIViewController, UITableViewDataSource, UITableViewDel
     }
     
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 90
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let track = trackPlaylist[indexPath.row]
+        let track = album?.songs[indexPath.row]
         currentIndex = indexPath.row
         
         if currentTrack == track {
@@ -104,13 +98,13 @@ class PlayerController:  UIViewController, UITableViewDataSource, UITableViewDel
                 print(currentPlayerStatus)
             }
         } else {
-            AudioPlayer.sharedInstance.play(url: track.mediaURL)
+            AudioPlayer.sharedInstance.play(url: (track?.mediaURL)!)
             AudioPlayer.sharedInstance.isPaused = false
             currentPlayerStatus = .playing
         }
         
         currentTrack = track
-        tableView.deselectRow(at: indexPath, animated: true)
+        //tableView.deselectRow(at: indexPath, animated: true)
         self.tableView.reloadData()
     }
     
@@ -119,7 +113,7 @@ class PlayerController:  UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @objc func didPlayToEnd() {
-        self.playNextTrack(trackPlaylist: trackPlaylist, currentIndex: &currentIndex)
+        self.playNextTrack(trackPlaylist: (album?.songs)!, currentIndex: &currentIndex)
         self.tableView.reloadData()
         print("This beautiful song has ended")
     }
